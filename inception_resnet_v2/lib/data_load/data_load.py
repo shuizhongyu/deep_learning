@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on 2017 10.17
-@author: liupeng
+@author: ljx
 """
 
 import sys

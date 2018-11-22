@@ -1,7 +1,7 @@
 # coding=utf-8
 """
 Created on 2017 10.17
-@author: liupeng
+@author: ljx
 """
 
 import numpy as np
@@ -10,6 +10,7 @@ slim = tf.contrib.slim
 from lib.utils.utils import get_next_batch_from_path, shuffle_train_data
 from lib.utils.utils import input_placeholder, build_net, cost, train_op, model_accuracy
 import os
+import sys
 
 def train(train_data,train_label,valid_data,valid_label,train_n,valid_n,train_dir,num_classes,batch_size,arch_model,learning_r_decay,learning_rate_base,decay_rate,dropout_prob,epoch,height,width,checkpoint_exclude_scopes,early_stop,EARLY_STOP_PATIENCE,fine_tune,train_all_layers,checkpoint_path,g_parameter):
     # ---------------------------------------------------------------------------------#
@@ -19,14 +20,14 @@ def train(train_data,train_label,valid_data,valid_label,train_n,valid_n,train_di
     net, _ = build_net(train_data, num_classes, dropout_prob, True, arch_model)
     variables_to_restore,variables_to_train = g_parameter(checkpoint_exclude_scopes)
     loss = cost(train_label, net)
-    global_step = tf.Variable(0, trainable=False)  
+    global_step = tf.Variable(0, trainable=False)
     if learning_r_decay:
-        learning_rate = tf.train.exponential_decay(  
-            learning_rate_base,                     
-            global_step * batch_size,  
-            1000,     # 多少次衰减一次           
-            decay_rate,                       
-            staircase=True)  
+        learning_rate = tf.train.exponential_decay(
+            learning_rate_base,
+            global_step * batch_size,
+            1000,     # 多少次衰减一次
+            decay_rate,
+            staircase=True)
     else:
         learning_rate = learning_rate_base
     if train_all_layers:
@@ -47,7 +48,7 @@ def train(train_data,train_label,valid_data,valid_label,train_n,valid_n,train_di
     # if not train_all_layers:
     saver_net = tf.train.Saver(variables_to_restore)
     saver_net.restore(sess, checkpoint_path)
-    
+
     if fine_tune:
         # saver2.restore(sess, fine_tune_dir)
         latest = tf.train.latest_checkpoint(train_dir)
@@ -56,10 +57,10 @@ def train(train_data,train_label,valid_data,valid_label,train_n,valid_n,train_di
             sys.exit(1)
         print ("resume", latest)
         saver2.restore(sess, latest)
-    
+
     # Start the queue runners.
     tf.train.start_queue_runners(sess= sess)
-    
+
     # early stopping
     best_valid = np.inf
     best_valid_epoch = 0
@@ -71,7 +72,11 @@ def train(train_data,train_label,valid_data,valid_label,train_n,valid_n,train_di
             if batch_i%100==0:
                 loss_, acc_ = sess.run([loss, accuracy])
                 print('Batch: {:>2}: Training loss: {:>3.5f}, Training accuracy: {:>3.5f}'.format(batch_i, loss_, acc_))
-            
+            try:
+                sys.stdout.flush()
+            except FileNotFoundError as e:
+                print("FileNotFoundError:flush")
+
             if batch_i%500==0:
                 ls, acc = sess.run([valid_loss, valid_accuracy])
                 print('Batch: {:>2}: Validation loss: {:>3.5f}, Validation accuracy: {:>3.5f}'.format(batch_i, ls, acc))
