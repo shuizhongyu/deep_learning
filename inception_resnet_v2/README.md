@@ -162,4 +162,4 @@ classify.sh中对应部分根据csv的结果，挑选yes和no概率大于50%的�
 
 13. format_test.sh 校验图片格式，只要jpg的。
 
-14. statistic.sh统计一些数据
+14. statistic.sh统计数据
