@@ -16,7 +16,7 @@ box，line，hole，hat，qr。
 
 line和hat为3类，其他为两类。
 
-目录结构如下：
+示例目录结构如下：
 
 images
 ├── line_no
