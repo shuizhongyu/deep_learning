@@ -1,0 +1,6 @@
+classes= 2
+train  = /userhome/darknet/data/VOC2018/ImageSets/Segmentation/train_path.txt
+valid  =  /userhome/darknet/data/VOC2018/ImageSets/Segmentation/val_path.txt
+names = /userhome/darknet/cfg/port.names
+backup = /userhome/darknet/backup/
+
