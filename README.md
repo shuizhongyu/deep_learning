@@ -1,5 +1,5 @@
 # cnn
-## inception_resnet_v2
+## inception
 目前支持inception v4,inception resnet v2
 
 # yolo
