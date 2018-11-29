@@ -1,4 +1,7 @@
-# 深度学习
+# 深度学习的一些算法运行框架
+
+按算法划分：
+
 ## cnn
 
 - inception
@@ -7,10 +10,19 @@
 
 - faster rcnn
 
+  待上传
+
+- tensorflow inception
+
+  待上传
+
 ## yolo
 - darknet
+
+  darknet框架下的yolo3算法
+
 - keras-yolo3
 
-## 
+  待上传
 
 
