@@ -1,7 +1,7 @@
 # Darknet Yolo3
 
 ## 来源：
-from [darknet](https://github.com/pjreddie/darknet) and some illustration [here](https://pjreddie.com/darknet/yolo/)
+from [darknet](https://github.com/pjreddie/darknet) and some official illustration [here](https://pjreddie.com/darknet/yolo/)
 
 ## 环境要求
 
@@ -156,7 +156,39 @@ VOC2018
 
 ## 统计
 
+- 输出目标检测结果
+
+    ```
+    ./darknet detector valid cfg/port_data.data cfg/yolov3_port.cfg 
+    backup/yolov3.weights
+    ```
+
+    识别的图片路径，即为上文提到的val_path.txt。运行后会在results文件夹中生成comp4_det_test_p.txt  									comp4_det_test_u.txt两个文件，分别代表p和u的识别结果。格式如下：
+
+    ```
+    ODF_test_67 0.999993 355.733459 424.608612 459.423584 506.037018
+    图片名称	概率		x，y坐标
+    ```
+
+- 然后用comput_map.py调用voc_eval_py3脚本输出map计算结果
+
+    ```
+    python comput_map.py
+    ```
+
+    需要修改comput_map.py中的comp4_det_test_p.txt，comp4_det_test_u.txt两个文件的路径，xml标注文件的路径，和类别的名称。
+
+    voc_eval_py3中ovthresh需要修改，当前测试设为0.3，代表预测和实际重叠面积比例超过多少时算作正确。
+
+    示例结果如下：
+
+    ```
+    ODF:p:ap 0.890292907681  u:ap 0.946686921977
+    POS:p:ap 0.625251434026  u:ap 0.830854541247  
+    ZDH:p:ap 0.970187220187   u:ap 0.951054725302
+    ```
 
 
 ## 代码说明
 
+待续
