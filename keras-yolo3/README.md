@@ -1,11 +1,57 @@
 # keras-yolo3
 
+## 环境要求
+
+- Python 3.5.2
+- Keras 2.1.5
+- tensorflow 1.6.0
+
+## 数据说明
+
+依然使用的是darknet中的目录格式，同时使用的是转换后的标记，与darknet中相同。
+
+## 使用方法
+
+### 训练
+
+- 训练使用的权重从darknet的权重转换而来，可以是从 [YOLO website](http://pjreddie.com/darknet/yolo/)下载的初始权重，也可以是自己训练过后的权重。转换方法：
+
+  ```
+  python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
+  ```
+
+  model_data/yolo.h5即为转换后keras可以使用的权重模型。
+
+- train.py文件中，定义了训练所需要的参数，模型位置，数据位置等等，修改合理后可进行训练。
+
+  ```
+  python train.py
+  ```
+
+
+### 测试
+
+
+
+### 统计
+
+
+
+
+
+
+
+
+
+
+
+# keras-yolo3
+
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 ## Introduction
 
 A Keras implementation of YOLOv3 (Tensorflow backend) inspired by [allanzelener/YAD2K](https://github.com/allanzelener/YAD2K).
-
 
 ---
 
@@ -72,10 +118,10 @@ optional arguments:
     Remember to modify class path or anchor path, with `--classes class_file` and `--anchors anchor_file`.
 
 If you want to use original pretrained weights for YOLOv3:  
-    1. `wget https://pjreddie.com/media/files/darknet53.conv.74`  
-    2. rename it as darknet53.weights  
-    3. `python convert.py -w darknet53.cfg darknet53.weights model_data/darknet53_weights.h5`  
-    4. use model_data/darknet53_weights.h5 in train.py
+​    1. `wget https://pjreddie.com/media/files/darknet53.conv.74`  
+​    2. rename it as darknet53.weights  
+​    3. `python convert.py -w darknet53.cfg darknet53.weights model_data/darknet53_weights.h5`  
+​    4. use model_data/darknet53_weights.h5 in train.py
 
 ---
 
