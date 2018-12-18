@@ -8,7 +8,15 @@
 
 ## 数据说明
 
-依然使用的是darknet中的目录格式，同时使用的是转换后的标记，与darknet中相同。
+data目录格式与darknet中相同，但对标注的要求不同，需要将图片的绝对路径写在label的第一位，后面跟着所有此图片中的标注框的坐标。通过voc_annotation.py来转换之前的标注到现所需格式。
+
+修改voc_annotation.py,准备训练需要信息
+
+- 修改各种路径,data/VOC2018/ImageSets/Main/train_num.txt存放图片名称
+
+  train_path.txt为指定格式
+
+- 解析xml文件遇到中文出错 解决:open时指定为utf-8编码
 
 ## 使用方法
 
@@ -22,16 +30,31 @@
 
   model_data/yolo.h5即为转换后keras可以使用的权重模型。
 
-- train.py文件中，定义了训练所需要的参数，模型位置，数据位置等等，修改合理后可进行训练。
+- train.py文件中，定义了训练所需要的参数，模型位置，数据位置，分类名称和数量等等，修改合理后可进行训练。自动划分train和val集合。
 
   ```
   python train.py
+  or
+  ./run.sh
   ```
 
+  注意类脑上训练的话，需要用10.11.3.8:5000/user-images/dlcvimg:py2735-tensorflow-torch这个镜像，默认的deepo镜像会有错误。
 
 ### 测试
 
+class文件存类别，anchors文件存cfg中anchors参数，可以分为video检测和image检测.
 
+```
+python yolo_video.py --model darknet_model/yolo.h5 --classes ./darknet_model/port_classed.txt --anchors ./darknet_model/yolov3_anchors.txt --image
+```
+
+上面命令初始有问题，可以全替换原位置上的文件，然后测试：
+
+```
+python yolo_video.py --image
+```
+
+然后输入图片名称，会输出p和u的概率和检测位置,输入名称太麻烦，回头修改yolo_video.py文件
 
 ### 统计
 
