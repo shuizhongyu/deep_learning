@@ -40,7 +40,7 @@ data目录格式与darknet中相同，但对标注的要求不同，需要将图
 
   注意类脑上训练的话，需要用10.11.3.8:5000/user-images/dlcvimg:py2735-tensorflow-torch这个镜像，默认的deepo镜像会有错误。
 
-- 训练后的模型位置在train.py中定义，weights_path变量定义，现定位于logs/000下：
+- 训练后的模型位置在train.py中定义，model_path变量定义，现定位于logs/000下：
 
   ep006-loss154.434-val_loss144.457.h5为示例名称。
 
