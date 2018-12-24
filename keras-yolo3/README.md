@@ -44,6 +44,8 @@ data目录格式与darknet中相同，但对标注的要求不同，需要将图
 
   ep006-loss154.434-val_loss144.457.h5为示例名称。
 
+  训练经过一段时间后（大概三四天），会出现这样的训练结果trained_weights_stage_1.h5，这个应该是比之前更值得一用的结果了。
+
 ### 测试
 
 class文件存类别，anchors文件存cfg中anchors参数，可以分为video检测和image检测.
