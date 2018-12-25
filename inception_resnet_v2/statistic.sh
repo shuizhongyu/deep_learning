@@ -149,8 +149,6 @@ function precision_recall3()
     cat temp | column -t
     rm temp
 
-
-
     echo ""
     echo yes:
     echo 1|awk '{printf("precision=%2.2f%%  "),'$YY'/('$YY'+'$YN'+'$YO')*100}'
@@ -264,6 +262,32 @@ function precision_recall4()
     echo 1|awk '{printf("precision=%2.2f%%  "),'$OO'/('$OY'+'$ON1'+'$ON2'+'$OO')*100}'
     echo 1|awk '{printf("recall=%2.2f%%  \n"),'$OO'/('$YO'+'$N1O'+'$N2O'+'$OO')*100}'
 
+    echo ""
+
+
+    #合并no1，no2的测试结果。
+    let NY=N1Y+N2Y
+    let YN=YN1+YN2
+    let ON=ON1+ON2
+    let NO=N1O+N2O
+    let NN=N1N1+N2N1+N1N2+N2N2
+
+    echo -e  "--  yes  no  other \nyes $YY $YN $YO \nno $NY $NN $NO \nother $OY $ON $OO" >temp
+    cat temp | column -t
+    rm temp
+
+    echo ""
+    echo yes:
+    echo 1|awk '{printf("precision=%2.2f%%  "),'$YY'/('$YY'+'$YN'+'$YO')*100}'
+    echo 1|awk '{printf("recall=%2.2f%%  \n"),'$YY'/('$YY'+'$NY'+'$OY')*100}'
+
+    echo no:
+    echo 1|awk '{printf("precision=%2.2f%%  "),'$NN'/('$NY'+'$NN'+'$NO')*100}'
+    echo 1|awk '{printf("recall=%2.2f%%  \n"),'$NN'/('$NN'+'$YN'+'$ON')*100}'
+
+    echo other:
+    echo 1|awk '{printf("precision=%2.2f%%  "),'$OO'/('$OY'+'$ON'+'$OO')*100}'
+    echo 1|awk '{printf("recall=%2.2f%% \n"),'$OO'/('$NO'+'$YO'+'$OO')*100}'
     echo ""
 }
 
